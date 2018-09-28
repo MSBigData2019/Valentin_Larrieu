@@ -26,7 +26,7 @@ def array_front9(nums):
 # the last 2 chars of the string, so "hixxxhi" yields 1 (we won't count the end substring).
 def last2(string):
 
-    return 0
+    return string.count(string[0:2])
 
 #Write a proramm that returna dictionary of occurences of the alphabet for a given string.
 # Test it with the Lorem upsuj
