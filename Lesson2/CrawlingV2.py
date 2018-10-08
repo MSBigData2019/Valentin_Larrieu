@@ -87,7 +87,7 @@ class Lesson1Tests(unittest.TestCase):
         self.assertEqual(_clear_query("joe déter a Gàl"), "joe%20déter%20a%20gàl")
 
 
-names_to_test = ["Poutou","Dupont Aignan", "Le Pen", "Arthaud", "Melenchon","Cheminade","Asselineau","Macron","Fillon"]
+names_to_test = ["Poutou","Dupont Aignan", "Marine Le Pen", "Nathalie Arthaud", "Melenchon","Cheminade","Asselineau","Macron","Fillon"]
 
 scrapper_printer(names_to_test)
 
