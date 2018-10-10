@@ -76,7 +76,7 @@ def print_mimic(mimic_dict, word):
 # Provided main(), calls mimic_dict() and mimic()
 def main():
     if len(sys.argv) != 2:
-        print ('usage: ./mimic.py file-to-read')
+        print ('usage: ./exo_dom_lesson_01.mimic.py file-to-read')
         sys.exit(1)
 
     dict = mimic_dict(sys.argv[1])
