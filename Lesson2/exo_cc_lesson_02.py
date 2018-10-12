@@ -84,10 +84,10 @@ def main():
     # Print of the results
     for dict in results_dic_list:
         print_results(dict)
-    # if ((results_dic_list[0]["average_pourc"]) > (results_dic_list[1]["average_pourc"])):
-    #     print("dell is the winner !")
-    # else:
-    #     print("acer is the winner !")
+    if ((results_dic_list[0]["average_pourc"]) > (results_dic_list[1]["average_pourc"])):
+        print("dell is the winner !")
+    else:
+        print("acer is the winner !")
 
 
 if __name__ == "__main__":
