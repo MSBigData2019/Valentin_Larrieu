@@ -32,12 +32,17 @@ def _handle_request_result_and_build_soup(request_result):
 
 
 def _convert_value_to_float(string):
-    #print("Min string",string)
-    if "--" in string:
-        return 0
+    print("Min string",string)
+    # if "--" in string:
+    #     return 0
     value = float(
         re.findall("[+-]?\d+\.\d+", string.strip().replace("%", "").replace("-", ""))[0])  # On ne récupère que les chiffres et le signe
+    print("value", value)
     return value
+
+def _convert_value_to_int(string):
+
+    return int(string[2:-1])
 
 
 def print_results(dict):
@@ -64,7 +69,7 @@ def main():
 
             sum = 0
             for pourc in reduc_table:
-                sum = sum + _convert_value_to_float(pourc)
+                sum = sum + _convert_value_to_int(pourc.get_text())
 
             if (len(reduc_table) != 0 ):
                 data["average_pourc"] = sum / len(reduc_table)
@@ -74,13 +79,15 @@ def main():
         else:
             data["average_pourc"] = 0
 
+        results_dic_list.append(data)
+
     # Print of the results
     for dict in results_dic_list:
         print_results(dict)
-    if ((results_dic_list[0]["average_pourc"]) > (results_dic_list[1]["average_pourc"])):
-        print("dell is the winner !")
-    else:
-        print("acer is the winner !")
+    # if ((results_dic_list[0]["average_pourc"]) > (results_dic_list[1]["average_pourc"])):
+    #     print("dell is the winner !")
+    # else:
+    #     print("acer is the winner !")
 
 
 if __name__ == "__main__":
