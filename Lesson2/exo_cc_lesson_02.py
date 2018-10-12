@@ -32,10 +32,11 @@ def _handle_request_result_and_build_soup(request_result):
 
 
 def _convert_value_to_float(string):
+    #print("Min string",string)
     if "--" in string:
         return 0
     value = float(
-        re.findall("[+-]?\d+\.\d+", string.strip().replace(",", ""))[0])  # On ne récupère que les chiffres et le signe
+        re.findall("[+-]?\d+\.\d+", string.strip().replace("%", "").replace("-", ""))[0])  # On ne récupère que les chiffres et le signe
     return value
 
 
@@ -47,7 +48,7 @@ def print_results(dict):
 
 
 def main():
-    #print("start")
+    print("start")
     for key, value in scrap_list.items():
         #print("loop")
         # Initialization
@@ -82,3 +83,5 @@ def main():
         print("acer is the winner !")
 
 
+if __name__ == "__main__":
+	main()
