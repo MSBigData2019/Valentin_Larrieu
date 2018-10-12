@@ -2,6 +2,8 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import unittest
+import time
 
 website_prefix = "https://www.darty.com"
 # List of entries
@@ -45,17 +47,19 @@ def print_results(dict):
 
 
 def main():
+    #print("start")
     for key, value in scrap_list.items():
+        #print("loop")
         # Initialization
         data = {'name': key}
         page = requests.get(value)
         soup = BeautifulSoup(page.text, 'html.parser')
 
         reduc_table = soup.find_all(class_='darty_prix_barre_remise darty_small separator_top')
-        print("table", reduc_table)
+        #print("table", reduc_table)
 
         if (reduc_table is not None):
-            print(reduc_table)
+            #print(reduc_table)
 
             sum = 0
             for pourc in reduc_table:
@@ -69,20 +73,12 @@ def main():
         else:
             data["average_pourc"] = 0
 
-
-        # specific_class = "test"
-        # all_links = list(map(lambda x: x.attrs['href'], soup.find_all("a", class_=specific_class))) # We get all the links
-
-        # results_dic_list.append(data)
-
     # Print of the results
     for dict in results_dic_list:
         print_results(dict)
-    if results_dic_list[0] > results_dic_list[1]:
+    if ((results_dic_list[0]["average_pourc"]) > (results_dic_list[1]["average_pourc"])):
         print("dell is the winner !")
     else:
         print("acer is the winner !")
-
-
 
 
