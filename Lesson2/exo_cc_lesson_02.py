@@ -52,7 +52,7 @@ def main():
         soup = BeautifulSoup(page.text, 'html.parser')
 
         reduc_table = soup.find_all(class_='darty_prix_barre_remise darty_small separator_top')
-        print(reduc_table)
+        print("table", reduc_table)
 
         if (reduc_table is not None):
             print(reduc_table)
