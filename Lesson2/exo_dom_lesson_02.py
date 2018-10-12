@@ -35,7 +35,7 @@ def _convert_value_to_int(string):
     #     money_string = "CHF"
     # value = c.convert(money_string, reference_currency)
     return value
-
+#
 def _convert_percentage_to_int(string):
     if "--" in string:
         return 0
