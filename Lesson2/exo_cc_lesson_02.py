@@ -60,6 +60,7 @@ def main():
         data = {'name': key}
         page = requests.get(value)
         soup = BeautifulSoup(page.text, 'html.parser')
+        #print("soup ", soup)
 
         reduc_table = soup.find_all(class_='darty_prix_barre_remise darty_small separator_top')
         #print("table", reduc_table)

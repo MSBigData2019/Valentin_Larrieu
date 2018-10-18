@@ -139,7 +139,7 @@ def average_column_list(list):
 
 
 def get_popularity_for_company(company):
-    start_time = time.clock()
+    start_time = time.process_time()
     query = _clear_query(company)
     list_of_link = get_all_links_for_query(query)
     results_percentage = []
@@ -168,7 +168,7 @@ def get_popularity_for_company(company):
     dict_res["nb_links"] = len(list_of_link)
     dict_res["last_quarter"] = quarter_value
     dict_res["dividend_yield"] = dividend_yield
-    dict_res["time_compute"] = time.clock()-start_time
+    dict_res["time_compute"] = time.process_time()-start_time
     return dict_res
 
 def average_dictionnary_values(dict_res):
@@ -272,7 +272,7 @@ class Lesson1Tests(unittest.TestCase):
         self.assertEqual(_clear_query("joe déter a Gàl"), "joe+déter+a+gàl")
 
 
-
+print("TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
 
 names_to_test = ["LVMH","Airbus", "Danone"]
 
