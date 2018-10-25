@@ -4,13 +4,15 @@ from bs4 import BeautifulSoup
 import re
 import pandas as pd
 
+website_prefix = "https://www.lacentrale.fr"
 def _give_number_string(string):
     #print("original", string)
+    #string = string.encode('ascii','ignore')
     if string is None:
         return 0
     #print("fct 1", string.strip().replace(" ",""))
     #print("fct 2 ", re.findall("[+-]?\d+[\.\d+]?",string.strip().replace(" ","").replace(",","")))
-    value = re.findall("[+-]?\d+[\.\d+]?",string.strip().replace(" ","").replace(" ","").replace(",",""))[0] # those spaces are different
+    value = re.findall("[+-]?\d+[\.\d+]?",string.strip().replace("\\xa","").replace(" ","").replace(" ","").replace(",",""))[0] # those spaces are different
     return value
 
 
@@ -48,9 +50,7 @@ def main():
         #list_name = list(give_map_text(soup,'version txtGrey7C noBold'))
         list_name = list(map(lambda x: x.find_all("span")[1].text, soup.find_all(class_= 'brandModelTitle')))
         list_price = list(map( lambda y : _give_number_string(y) , map(lambda x: x.find_all("span")[1].text, soup.find_all("nobr"))))
-
-        #set_unique_name = set(list_name)
-        #print("set", set(map_name))
+        list_link = list(map( lambda y : website_prefix+y.attrs['href'] , map(lambda x: x.find_all("a")[0], soup.find_all(class_="adContainer"))))
         list_argus = []
 
         # We iterate over our years and name to get the argus value of the car
@@ -68,15 +68,28 @@ def main():
                 list_argus.append(0)
             #print("MAP argus tmp", list_argus_tmp, "nb elem ", len(list_argus_tmp))
 
+        list_phone = []
+        # We need the phone number which is only in the announce so we scrap the links to get it
+        for link in list_link:
+            #print("link ", link)
+            page_annonce = requests.get(link)
+            soup_annonce = BeautifulSoup(page_annonce.text, 'html.parser')
+            phone = _give_number_string(soup_annonce.find(class_="phoneNumber1").text.replace("\xa0", ""))
+            list_phone.append(phone)
+
+
+
         #print("MAP type", list_type_annonce, "nb elem ", len(list_type_annonce))
         #print("MAP annee", list_annee, "nb elem ", len(list_annee))
         #print("MAP kilometrage", list_kilometrage, "nb elem ", len(list_kilometrage))
         #print("MAP name", list_name, "nb elem ", len(list_name))
         #print("MAP prix", list_price, "nb elem ", len(list_price))
+        #print("MAP link", list_link, "nb elem ", len(list_link))
         #print("MAP argus", list_argus, "nb elem ", len(list_argus))
+        #print("MAP phone", list_phone, "nb elem ", len(list_phone))
 
         # We generate our dataframe
-        dataframe = pd.DataFrame({"name": list_name, "announce_type": list_type_annonce,  "year": list_annee, "kilometers": list_kilometrage, "price" : list_price, "argus": list_argus})
+        dataframe = pd.DataFrame({"version": list_name, "announce_type": list_type_annonce,  "year": list_annee, "kilometers": list_kilometrage, "price" : list_price, "argus": list_argus, "phone" : list_phone, "link" : list_link})
         #print(dataframe.head(20).to_string())
         df_list.append(dataframe)
 
