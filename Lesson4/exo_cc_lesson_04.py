@@ -39,6 +39,13 @@ def get_type(label):
     #print("splited",splited)
     return splited[1]
 
+def get_quantity(label):
+    splited = label.split(",")
+    # to do : regex to get info
+
+    #print("splited",splited)
+    return splited[0]
+
 def main():
     print("Start")
     # This list will contain a list of dataframe, one per page scrapped
@@ -56,15 +63,18 @@ def main():
     list_denomi = [json1["denomination"] for json1 in json_res]
     list_code = [json1["codeCIS"] for json1 in json_res]
     list_type = list(map(lambda x: get_type(x), list_denomi))
+    list_quant = list(map(lambda x: get_quantity(x), list_denomi))
 
-    print("list type", list_type)
+    #print("list quant", list_quant)
     #print("denom", list_denomi)
     dataframe = pd.DataFrame({"codeCIS": list_code, "denomination": list_denomi, "type":list_type})
 
 
-    #print(dataframe.head(100).to_string())
+    print(dataframe.head(100).to_string())
     print("end")
 
 
 if __name__ == "__main__":
 	main()
+
+
