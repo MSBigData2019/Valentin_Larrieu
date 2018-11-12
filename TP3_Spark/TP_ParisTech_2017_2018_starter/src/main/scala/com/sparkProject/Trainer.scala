@@ -61,7 +61,7 @@ object Trainer {
     val tokenizer = new RegexTokenizer()
       .setPattern("\\W+")
       .setGaps(true)
-      .setInputCol("keywords")
+      .setInputCol("text")
       .setOutputCol("tokens")
 
     // 2.b
@@ -97,7 +97,7 @@ object Trainer {
       .setInputCol("currency2")
       .setOutputCol("currency_indexed")
     //.setHandleInvalid("skip")
-    //keep
+
 
     // 3.g
     println(" 3 g/ One hot encoder country")
@@ -177,16 +177,16 @@ object Trainer {
 
     println("f1score : "+ myMetrics)
 
-    /*Results optained with this seed :
+    /*Results obtained with this seed :
     +------------+-----------+-----+
     |final_status|predictions|count|
     +------------+-----------+-----+
-    |           1|        0.0|  979|
-    |           0|        0.0| 3822|
-    |           1|        1.0| 2399|
-    |           0|        1.0| 3447|
+    |           1|        0.0| 1007|
+    |           0|        0.0| 4459|
+    |           1|        1.0| 2500|
+    |           0|        1.0| 2854|
     +------------+-----------+-----+
-    f1score : 0.5974092144793134
+    f1score : 0.6545631606271557
      */
 
 
